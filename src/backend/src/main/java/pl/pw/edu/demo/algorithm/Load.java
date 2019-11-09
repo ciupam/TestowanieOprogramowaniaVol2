@@ -12,9 +12,8 @@ public class Load {
     public Load(String filename) {
         this.filename = filename;
     }
-
     public Graph load() throws FileNotFoundException {
-        Scanner goodFile = new Scanner(new FileReader("./data/" + filename));
+        Scanner goodFile = new Scanner(new FileReader(filename));
         String buffor;
         Graph graph = new Graph();
         if (!goodFile.nextLine().startsWith("#")) {
@@ -32,7 +31,7 @@ public class Load {
         while (goodFile.hasNextLine()) {
             buffor = goodFile.nextLine();
             String[] tmp = buffor.split("\\s");
-            graph.addRate(tmp[1], tmp[2], Double.parseDouble(tmp[3]), tmp[4], Double.parseDouble(tmp[5]));
+            graph.addRate(tmp[1], tmp[2], Double.parseDouble(tmp[3]), Double.parseDouble(tmp[4]));
         }
         return graph;
     }

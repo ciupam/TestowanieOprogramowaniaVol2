@@ -24,7 +24,7 @@ public class Graph {
         vertexList.add(new Vertex(code));
     }
 
-    public void addRate(String currencyName1, String currencyName2, double value, String provisionType, double provision) {
+    public void addRate(String currencyName1, String currencyName2, double price,  double time) {
         Vertex vertexFrom;
         Vertex vertexTo;
         boolean added = false;
@@ -35,7 +35,7 @@ public class Graph {
                 for (int j = 0; j < vertexList.size(); j++) {
                     vertexTo = vertexList.get(j);
                     if (vertexTo.name.equals(currencyName2)) {
-                        vertexFrom.neighbourList.add(new Rate(vertexTo, value, provisionType, provision));
+                        vertexFrom.neighbourList.add(new Rate(vertexTo, price, time));
                         added = true;
                         break;
                     }
@@ -54,6 +54,7 @@ public class Graph {
         List result = readBestRoad(inCurrency, outCurrency);
         return result;
     }
+
     private void checkGraphForBestExchenge(String inCurrency, double value) {
         Vertex vertexFrom;
         Queue<Vertex> queue = new ArrayDeque<>();

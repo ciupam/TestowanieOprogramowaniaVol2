@@ -9,7 +9,6 @@ public class Vertex {
     String name;
     List<Rate> neighbourList;
     double value = 0;
-    boolean visit = false;
     boolean check = false;
     Vertex parrent = null;
 
@@ -25,8 +24,8 @@ public class Vertex {
         for (int i = 0; i < neighbourList.size(); i++) {
             cyclebreak = true;
             visiting = neighbourList.get(i).vertexOut;
-            double newValue = neighbourList.get(i).calculateRateValue(this.value);
-            if (newValue > visiting.value) {
+            double newValue = neighbourList.get(i).calculatePrice(this.value);
+            if (newValue < visiting.value || visiting.value ==0 ) {
                 Vertex grandparrent = this.parrent;
                 while (grandparrent != null) {
                     if (grandparrent == visiting) {
