@@ -7,36 +7,36 @@ import java.util.Queue;
 public class Vertex {
 
     String name;
-    List<Rate> neighbourList;
+    List<Flight> neighbourList;
     double value = 0;
     boolean check = false;
-    Vertex parrent = null;
+    Vertex parent = null;
 
-    Vertex(String name) {
+    public Vertex(String name) {
         this.name = name;
         this.neighbourList = new ArrayList<>();
     }
 
-    void checkNeighbourWithCycleBreak(Queue<Vertex> queue, String inCurrency) {
+    public void checkNeighbourWithCycleBreak(Queue<Vertex> queue) {
         Vertex visiting;
-        boolean cyclebreak;
+        boolean cycleBreak;
 
         for (int i = 0; i < neighbourList.size(); i++) {
-            cyclebreak = true;
+            cycleBreak = true;
             visiting = neighbourList.get(i).vertexOut;
             double newValue = neighbourList.get(i).calculatePrice(this.value);
             if (newValue < visiting.value || visiting.value ==0 ) {
-                Vertex grandparrent = this.parrent;
-                while (grandparrent != null) {
-                    if (grandparrent == visiting) {
-                        cyclebreak = false;
+                Vertex grandparent = this.parent;
+                while (grandparent != null) {
+                    if (grandparent == visiting) {
+                        cycleBreak = false;
                         break;
                     }
-                    grandparrent = grandparrent.parrent;
+                    grandparent = grandparent.parent;
                 }
-                if (cyclebreak) {
+                if (cycleBreak) {
                     visiting.value = newValue;
-                    visiting.parrent = this;
+                    visiting.parent = this;
                     visiting.check = false;
                     if (!queue.contains(visiting)) {
                         queue.add(visiting);

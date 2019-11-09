@@ -24,7 +24,7 @@ public class Graph {
         vertexList.add(new Vertex(code));
     }
 
-    public void addRate(String currencyName1, String currencyName2, double price,  double time) {
+    public void addFlight(String currencyName1, String currencyName2, double price, double time) {
         Vertex vertexFrom;
         Vertex vertexTo;
         boolean added = false;
@@ -35,7 +35,7 @@ public class Graph {
                 for (int j = 0; j < vertexList.size(); j++) {
                     vertexTo = vertexList.get(j);
                     if (vertexTo.name.equals(currencyName2)) {
-                        vertexFrom.neighbourList.add(new Rate(vertexTo, price, time));
+                        vertexFrom.neighbourList.add(new Flight(vertexTo, price, time));
                         added = true;
                         break;
                     }
@@ -49,13 +49,13 @@ public class Graph {
         rateCounter++;
     }
 
-    public List<String> getBestExchenge(String inCurrency, String outCurrency, double value) {
-        checkGraphForBestExchenge(inCurrency, value);
-        List result = readBestRoad(inCurrency, outCurrency);
+    public List<String> getBestRoute(String inCurrency, String outCurrency, double value) {
+        checkGraphForBestRoute(inCurrency, value);
+        List result = readBestRoute(inCurrency, outCurrency);
         return result;
     }
 
-    private void checkGraphForBestExchenge(String inCurrency, double value) {
+    private void checkGraphForBestRoute(String inCurrency, double value) {
         Vertex vertexFrom;
         Queue<Vertex> queue = new ArrayDeque<>();
 
@@ -70,17 +70,17 @@ public class Graph {
         while (!queue.isEmpty()) {
             vertexFrom = queue.remove();
             if (!vertexFrom.check) {
-                vertexFrom.checkNeighbourWithCycleBreak(queue, inCurrency);
+                vertexFrom.checkNeighbourWithCycleBreak(queue);
                 vertexFrom.check = true;
             }
         }
     }
 
-    private List<String> readBestRoad(String inCurrency, String outCurrency) {
+    private List<String> readBestRoute(String inCurrency, String outCurrency) {
         List<String> result = new ArrayList<>();
         Vertex vertexFrom = null;
         if (inCurrency == null) {
-            result.add("Nie istnieje arbitraz");
+            result.add("Nie istnieje arbitraż");
             return result;
         }
         boolean exist = true;
@@ -92,18 +92,18 @@ public class Graph {
             }
         }
         if (exist) {
-            result.add("Podana waluta wyjściowa nie istnieje");
+            result.add("Podane miasto docelowe nie istnieje");
             return result;
         }
-        if (vertexFrom.parrent == null) {
-            result.add("Podana waluty nie sa polaczone");
+        if (vertexFrom.parent == null) {
+            result.add("Podane miasta nie sa polaczone");
             return result;
         }
         result.add(vertexFrom.name);
-        vertexFrom = vertexFrom.parrent;
+        vertexFrom = vertexFrom.parent;
         while (!vertexFrom.name.equals(inCurrency)) {
             result.add(vertexFrom.name);
-            vertexFrom = vertexFrom.parrent;
+            vertexFrom = vertexFrom.parent;
         }
         result.add(vertexFrom.name);
         for (int i = 0; i < vertexList.size(); i++) {

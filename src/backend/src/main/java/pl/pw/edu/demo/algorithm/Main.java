@@ -10,7 +10,7 @@ public class Main {
         Load load = new Load("Test.txt");
         Graph graph = load.load();
         List<String> result = null;
-        result = graph.getBestExchenge("EUR", "GBP", 0);
+        result = graph.getBestRoute("EUR", "GBP", 0);
         System.out.print("Ścieżka: ");
         for (int i = result.size() - 1; i >= 0; i--) {
             System.out.print(result.get(i) + " ");

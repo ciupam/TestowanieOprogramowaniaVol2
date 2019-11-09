@@ -31,7 +31,7 @@ public class Load {
         while (goodFile.hasNextLine()) {
             buffor = goodFile.nextLine();
             String[] tmp = buffor.split("\\s");
-            graph.addRate(tmp[1], tmp[2], Double.parseDouble(tmp[3]), Double.parseDouble(tmp[4]));
+            graph.addFlight(tmp[1], tmp[2], Double.parseDouble(tmp[3]), Double.parseDouble(tmp[4]));
         }
         return graph;
     }
