@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class SaveCourse {
+public class SaveCourseRequest {
     @NotNull
     private String start;
 

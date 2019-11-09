@@ -1,4 +1,6 @@
 package pl.pw.edu.demo.algorithm;
+import pl.pw.edu.demo.dto.CourseResponse;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +51,9 @@ public class Graph {
         rateCounter++;
     }
 
-    public List<String> getBestRoute(String inCurrency, String outCurrency, double value) {
+    public CourseResponse getBestRoute(String inCurrency, String outCurrency, double value) {
         checkGraphForBestRoute(inCurrency, value);
-        List result = readBestRoute(inCurrency, outCurrency);
-        return result;
+        return readBestRoute(inCurrency, outCurrency);
     }
 
     private void checkGraphForBestRoute(String inCurrency, double value) {
@@ -76,13 +77,10 @@ public class Graph {
         }
     }
 
-    private List<String> readBestRoute(String inCurrency, String outCurrency) {
+    private CourseResponse readBestRoute(String inCurrency, String outCurrency) {
         List<String> result = new ArrayList<>();
+        CourseResponse response = new CourseResponse();
         Vertex vertexFrom = null;
-        if (inCurrency == null) {
-            result.add("Nie istnieje arbitraż");
-            return result;
-        }
         boolean exist = true;
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
@@ -93,11 +91,15 @@ public class Graph {
         }
         if (exist) {
             result.add("Podane miasto docelowe nie istnieje");
-            return result;
+            response.setCities(result);
+            response.setValue(0);
+            return response;
         }
         if (vertexFrom.parent == null) {
             result.add("Podane miasta nie sa polaczone");
-            return result;
+            response.setCities(result);
+            response.setValue(0);
+            return response;
         }
         result.add(vertexFrom.name);
         vertexFrom = vertexFrom.parent;
@@ -109,11 +111,12 @@ public class Graph {
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
             if (vertexFrom.name.equals(outCurrency)) {
-                System.out.format("Wynik: %.4f %s%n", vertexFrom.value, vertexFrom.name);
+                response.setValue(vertexFrom.value);
                 break;
             }
         }
-        return result;
+        response.setCities(result);
+        return response;
     }
 
 }
