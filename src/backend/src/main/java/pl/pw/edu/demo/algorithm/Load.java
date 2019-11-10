@@ -12,6 +12,7 @@ public class Load {
     public Load(String filename) {
         this.filename = filename;
     }
+
     public Graph load() throws FileNotFoundException {
         Scanner goodFile = new Scanner(new FileReader(filename));
         String buffor;
@@ -47,13 +48,7 @@ public class Load {
             String[] tokens = line.split("\\s");
             if ("#".equals(tokens[0])) {
             } else {
-                if (tokens[0].equals(vertexNumber)
-                        && tokens[1].matches("\\A-Z{3}")
-                        && tokens[2].matches("\\.+")) {
-                    vertexNumber++;
-                } else {
-                    return vertexNumber;
-                }
+                vertexNumber++;
             }
         }
         return -1;
