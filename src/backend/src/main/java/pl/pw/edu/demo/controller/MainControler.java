@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.pw.edu.demo.algorithm.Algorithm;
 import pl.pw.edu.demo.dto.CitiesResponse;
 import pl.pw.edu.demo.dto.CourseResponse;
+import pl.pw.edu.demo.dto.FindCourseRequest;
 import pl.pw.edu.demo.dto.SaveCourseRequest;
 
 import javax.validation.Valid;
@@ -32,10 +33,10 @@ public class MainControler {
         return new ResponseEntity<>(request,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping("/findCourse/{start}/{end}")
-    public ResponseEntity<CourseResponse> getUser(@PathVariable String start, @PathVariable String end) {
-        log.info("New get request start \"" + start + "\" end \"" + end + "\"");
-        CourseResponse result = algorithm.findBestConnection(start, end);
+    @PostMapping("/findCourse")
+    public ResponseEntity<CourseResponse> getCourse(@Valid @RequestBody FindCourseRequest request) {
+        log.info("New get request start \"" + request.getStart() + "\" destination \"" + request.getDestination() + "\"");
+        CourseResponse result = algorithm.findBestConnection(request.getStart(), request.getDestination());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
