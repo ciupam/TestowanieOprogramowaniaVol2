@@ -11,39 +11,49 @@ import java.util.Queue;
 public class Graph {
 
     private final List<Vertex> vertexList;
-    private int rateCounter = 0;
+    private int FlightCounter = 0;
 
     public Graph() {
         vertexList = new ArrayList<>();
     }
 
-    public void addVertex(String code) {
+    public String addVertex(String city) {
         for (int i = 0; i < vertexList.size(); i++) {
-            if (vertexList.get(i).name.equals(code)) {
-                System.out.println("Waluta o kodzie " + code + " już istnieje, nie zostala dodana powtornie");
-                System.out.println("Waluta ta znajduje się w wierszu " + vertexList.size());
-                return;
+            if (vertexList.get(i).getName().equals(city)) {
+                return "Miasto o nazwie " + city + " już istnieje, nie zostało dodane powtórnie";
             }
         }
-        vertexList.add(new Vertex(code));
+        vertexList.add(new Vertex(city));
+        return "ok";
     }
 
-    public void addFlight(String startCity, String destCity, double price, double time) {
+    public String addFlight(String startCity, String destCity, double price, double time) {
+        if (price < 0) {
+            return "Cena " + price + " jest niepoprawna";
+        }
+        if (time < 0) {
+            return "Czas " + time + " jest niepoprawny";
+        }
         Vertex vertexFrom;
         Vertex vertexTo;
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(startCity)) {
+            if (vertexFrom.getName().equals(startCity)) {
                 for (int j = 0; j < vertexList.size(); j++) {
                     vertexTo = vertexList.get(j);
-                    if (vertexTo.name.equals(destCity)) {
-                        vertexFrom.neighbourList.add(new Flight(vertexTo, price, time));
-                        break;
+                    if (vertexTo.getName().equals(destCity)) {
+                        vertexFrom.getNeighbourList().add(new Flight(vertexTo, price, time));
+                        FlightCounter++;
+                        return "ok";
                     }
                 }
+                return "Nie odnaleziono połączenia z miasta " + startCity + " do " + destCity;
             }
+
         }
-        rateCounter++;
+        return "Miasto " + startCity + " nie zostało wprowadzone";
+
+
     }
 
     public CourseResponse getBestRoute(String startCity, String destCity, double value) {
@@ -57,17 +67,17 @@ public class Graph {
 
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(startCity)) {
-                vertexFrom.value = value;
+            if (vertexFrom.getName().equals(startCity)) {
+                vertexFrom.setValue(value);
                 queue.add(vertexFrom);
                 break;
             }
         }
         while (!queue.isEmpty()) {
             vertexFrom = queue.remove();
-            if (!vertexFrom.check) {
+            if (!vertexFrom.isCheck()) {
                 vertexFrom.checkNeighbourWithCycleBreak(queue);
-                vertexFrom.check = true;
+                vertexFrom.setCheck(true);
             }
         }
     }
@@ -79,7 +89,7 @@ public class Graph {
         boolean exist = true;
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(destCity)) {
+            if (vertexFrom.getName().equals(destCity)) {
                 exist = false;
                 break;
             }
@@ -90,23 +100,23 @@ public class Graph {
             response.setValue(0);
             return response;
         }
-        if (vertexFrom.parent == null) {
+        if (vertexFrom.getParent() == null) {
             result.add("Podane miasta nie sa polaczone");
             response.setCities(result);
             response.setValue(0);
             return response;
         }
-        result.add(vertexFrom.name);
-        vertexFrom = vertexFrom.parent;
-        while (!vertexFrom.name.equals(startCity)) {
-            result.add(vertexFrom.name);
-            vertexFrom = vertexFrom.parent;
+        result.add(vertexFrom.getName());
+        vertexFrom = vertexFrom.getParent();
+        while (!vertexFrom.getName().equals(startCity)) {
+            result.add(vertexFrom.getName());
+            vertexFrom = vertexFrom.getParent();
         }
-        result.add(vertexFrom.name);
+        result.add(vertexFrom.getName());
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(destCity)) {
-                response.setValue(vertexFrom.value);
+            if (vertexFrom.getName().equals(destCity)) {
+                response.setValue(vertexFrom.getValue());
                 break;
             }
         }

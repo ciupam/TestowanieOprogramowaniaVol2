@@ -1,19 +1,21 @@
 package pl.pw.edu.demo.algorithm;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
 @Getter
+@Setter
 public class Vertex {
 
-    String name;
-    List<Flight> neighbourList;
-    double value = 0;
-    boolean check = false;
-    Vertex parent = null;
+    private final String name;
+    private List<Flight> neighbourList;
+    private double value = 0;
+    private boolean check = false;
+    private Vertex parent = null;
 
     public Vertex(String name) {
         this.name = name;
@@ -26,7 +28,7 @@ public class Vertex {
 
         for (int i = 0; i < neighbourList.size(); i++) {
             cycleBreak = true;
-            visiting = neighbourList.get(i).vertexOut;
+            visiting = neighbourList.get(i).getVertexOut();
             double newValue = neighbourList.get(i).calculatePrice(this.value);
             if (newValue < visiting.value || visiting.value ==0 ) {
                 Vertex grandparent = this.parent;
