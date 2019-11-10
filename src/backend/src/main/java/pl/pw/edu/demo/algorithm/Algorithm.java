@@ -26,9 +26,6 @@ public class Algorithm {
 
     public CourseResponse findBestConnection(String startCity, String destCity) {
         CourseResponse result = graph.getBestRoute(startCity, destCity, 0);
-//        System.out.print("Ścieżka: ");
-//        for (int i = result.size() - 1; i >= 0; i--) {
-//            System.out.print(result.get(i) + " ");
         return result;
     }
 

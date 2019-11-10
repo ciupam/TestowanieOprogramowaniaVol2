@@ -26,43 +26,36 @@ public class Graph {
         vertexList.add(new Vertex(code));
     }
 
-    public void addFlight(String currencyName1, String currencyName2, double price, double time) {
+    public void addFlight(String startCity, String destCity, double price, double time) {
         Vertex vertexFrom;
         Vertex vertexTo;
-        boolean added = false;
-
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(currencyName1)) {
+            if (vertexFrom.name.equals(startCity)) {
                 for (int j = 0; j < vertexList.size(); j++) {
                     vertexTo = vertexList.get(j);
-                    if (vertexTo.name.equals(currencyName2)) {
+                    if (vertexTo.name.equals(destCity)) {
                         vertexFrom.neighbourList.add(new Flight(vertexTo, price, time));
-                        added = true;
                         break;
                     }
                 }
             }
         }
-        if (!added) {
-            System.out.println("Nie dodano kursu pomiedzy " + currencyName1 + " " + currencyName2 + " jedna z walut nie istnieje");
-            System.out.println("Kurs ten znajduje sie w w wierszu " + rateCounter);
-        }
         rateCounter++;
     }
 
-    public CourseResponse getBestRoute(String inCurrency, String outCurrency, double value) {
-        checkGraphForBestRoute(inCurrency, value);
-        return readBestRoute(inCurrency, outCurrency);
+    public CourseResponse getBestRoute(String startCity, String destCity, double value) {
+        checkGraphForBestRoute(startCity, value);
+        return readBestRoute(startCity, destCity);
     }
 
-    private void checkGraphForBestRoute(String inCurrency, double value) {
+    private void checkGraphForBestRoute(String startCity, double value) {
         Vertex vertexFrom;
         Queue<Vertex> queue = new ArrayDeque<>();
 
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(inCurrency)) {
+            if (vertexFrom.name.equals(startCity)) {
                 vertexFrom.value = value;
                 queue.add(vertexFrom);
                 break;
@@ -77,14 +70,14 @@ public class Graph {
         }
     }
 
-    private CourseResponse readBestRoute(String inCurrency, String outCurrency) {
+    private CourseResponse readBestRoute(String startCity, String destCity) {
         List<String> result = new ArrayList<>();
         CourseResponse response = new CourseResponse();
         Vertex vertexFrom = null;
         boolean exist = true;
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(outCurrency)) {
+            if (vertexFrom.name.equals(destCity)) {
                 exist = false;
                 break;
             }
@@ -103,14 +96,14 @@ public class Graph {
         }
         result.add(vertexFrom.name);
         vertexFrom = vertexFrom.parent;
-        while (!vertexFrom.name.equals(inCurrency)) {
+        while (!vertexFrom.name.equals(startCity)) {
             result.add(vertexFrom.name);
             vertexFrom = vertexFrom.parent;
         }
         result.add(vertexFrom.name);
         for (int i = 0; i < vertexList.size(); i++) {
             vertexFrom = vertexList.get(i);
-            if (vertexFrom.name.equals(outCurrency)) {
+            if (vertexFrom.name.equals(destCity)) {
                 response.setValue(vertexFrom.value);
                 break;
             }
