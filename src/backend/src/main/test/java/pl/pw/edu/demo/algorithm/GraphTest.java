@@ -1,4 +1,4 @@
-package pl.pw.edu.demo.tests;
+package pl.pw.edu.demo.algorithm;
 
 import pl.pw.edu.demo.algorithm.Graph;
 import org.junit.jupiter.api.Test;
