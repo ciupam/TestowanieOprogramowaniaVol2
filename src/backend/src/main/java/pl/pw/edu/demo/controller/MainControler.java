@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pw.edu.demo.algorithm.Algorithm;
+import pl.pw.edu.demo.dto.CitiesResponse;
 import pl.pw.edu.demo.dto.CourseResponse;
 import pl.pw.edu.demo.dto.SaveCourseRequest;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Log
 @CrossOrigin
@@ -35,5 +37,13 @@ public class MainControler {
         log.info("New get request start \"" + start + "\" end \"" + end + "\"");
         CourseResponse result = algorithm.findBestConnection(start, end);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/cities")
+    public ResponseEntity<CitiesResponse> getCities(){
+        List<String> cities = algorithm.getCities();
+        CitiesResponse response = new CitiesResponse();
+        response.setCities(cities);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 }

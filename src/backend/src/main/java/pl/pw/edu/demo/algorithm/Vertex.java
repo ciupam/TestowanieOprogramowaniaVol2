@@ -1,9 +1,12 @@
 package pl.pw.edu.demo.algorithm;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+@Getter
 public class Vertex {
 
     String name;

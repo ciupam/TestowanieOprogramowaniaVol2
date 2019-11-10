@@ -6,6 +6,8 @@ import pl.pw.edu.demo.dto.CourseResponse;
 import pl.pw.edu.demo.dto.SaveCourseRequest;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Algorithm {
     Graph graph;
@@ -34,6 +36,14 @@ public class Algorithm {
         graph.addVertex(request.getDestination());
         graph.addFlight(request.getStart(),request.getDestination(),request.getPrice(),request.getTime());
         return 200;
+    }
+
+    public List<String> getCities(){
+        List<String> cities = new ArrayList<>();
+        for(Vertex vertex: graph.getVertexList()){
+            cities.add(vertex.getName());
+        }
+        return cities;
     }
 }
 

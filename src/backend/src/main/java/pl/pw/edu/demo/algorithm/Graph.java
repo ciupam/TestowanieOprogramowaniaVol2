@@ -1,4 +1,5 @@
 package pl.pw.edu.demo.algorithm;
+import lombok.Getter;
 import pl.pw.edu.demo.dto.CourseResponse;
 
 import java.util.ArrayDeque;
@@ -6,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+@Getter
 public class Graph {
 
     private final List<Vertex> vertexList;
