@@ -1,0 +1,11 @@
+#
+0 Warszawa
+1 Kraków
+2 Poznań
+3 Lublin
+4 Chicago
+5 Amsterdam
+6 Berlin
+7 Paryż
+8 Sydney
+10 Łuków

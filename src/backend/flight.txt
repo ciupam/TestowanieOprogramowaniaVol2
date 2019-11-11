@@ -1,0 +1,14 @@
+1 Warszawa Kraków 400 1
+2 Warszawa Lublin 600 0.5
+3 Kraków Warszawa 300 1
+4 Lublin Warszawa 600 0.5
+5 Warszawa Amsterdam 800 1
+6 Amsterdam Chicago 3000 5
+7 Paryż Chicago 3200 4
+8 Amsterdam Paryż 400 1
+9 Berlin Warszawa 800 1
+10 Warszawa Berlin 700 1
+11 Sydney Lublin 4000 12
+12 Lublin Sydney 4200 13
+13 Kraków Lublin 500 1 
+13 Warszawa Łuków 456.0 65.0

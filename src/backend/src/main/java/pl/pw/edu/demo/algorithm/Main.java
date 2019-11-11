@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Load load = new Load("Test.txt");
+        Load load = new Load("cities.txt","flight.txt");
         Graph graph = load.load();
         CourseResponse result = null;
         result = graph.getBestRoute("Warszawa", "Sydney", 0);

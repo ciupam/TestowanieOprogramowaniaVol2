@@ -7,21 +7,24 @@ import java.util.Scanner;
 
 public class Load {
 
-    private final String filename;
+    private final String citesFileName;
+    private final String flightFileName;
 
-    public Load(String filename) {
-        this.filename = filename;
+    public Load(String citesFileName, String flightFileName) {
+        this.citesFileName = citesFileName;
+        this.flightFileName = flightFileName;
+
     }
 
     public Graph load() throws FileNotFoundException {
-        Scanner goodFile = new Scanner(new FileReader(filename));
+        Scanner citesFile = new Scanner(new FileReader(citesFileName));
         String buffor;
         Graph graph = new Graph();
-        if (!goodFile.nextLine().startsWith("#")) {
+        if (!citesFile.nextLine().startsWith("#")) {
             throw new IllegalArgumentException("Nie wykryto lini inicjalizującej");
         }
-        while (goodFile.hasNextLine()) {
-            buffor = goodFile.nextLine();
+        while (citesFile.hasNextLine()) {
+            buffor = citesFile.nextLine();
             String[] tmp = buffor.split("\\s");
             if ("#".equals(tmp[0])) {
                 break;
@@ -29,28 +32,13 @@ public class Load {
                 graph.addVertex(tmp[1]);
             }
         }
-        while (goodFile.hasNextLine()) {
-            buffor = goodFile.nextLine();
+        Scanner flightFile = new Scanner(new FileReader(flightFileName));
+        while (flightFile.hasNextLine()) {
+            buffor = flightFile.nextLine();
             String[] tmp = buffor.split("\\s");
             graph.addFlight(tmp[1], tmp[2], Double.parseDouble(tmp[3]), Double.parseDouble(tmp[4]));
         }
         return graph;
     }
 
-    public int checkData() throws FileNotFoundException {
-        Scanner checker = new Scanner(new File("./dataForTest/" + filename));
-
-        int vertexNumber = 0;
-        int rateNumber = 0;
-
-        while (checker.hasNextLine()) {
-            String line = checker.nextLine();
-            String[] tokens = line.split("\\s");
-            if ("#".equals(tokens[0])) {
-            } else {
-                vertexNumber++;
-            }
-        }
-        return -1;
-    }
 }
