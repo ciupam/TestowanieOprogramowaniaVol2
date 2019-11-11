@@ -1,2 +1,4 @@
 # TestowanieOprogramowaniaVol2
-TDD
+
+## Run
+`docker-compose build; docker-compose up`
