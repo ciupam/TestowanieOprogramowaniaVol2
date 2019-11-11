@@ -137,7 +137,7 @@ class GraphTest {
 
 
     @Test
-    void getBestRouteWhenOneRoutePriceHigherThanDoubleMaxValueTest() {
+    void getBestRouteWhenOneRoutePriceIsHigherThanDoubleMaxValueTest() {
         Graph instanceGraph = new Graph();
         instanceGraph.addVertex("Char");
         instanceGraph.addVertex("Aiur");
@@ -161,6 +161,7 @@ class GraphTest {
         instanceGraph.addFlight("Aiur", "Char", 3000, 100);
         CourseResponse cr = instanceGraph.getBestRoute("Char", "Korhal", 0);
         assertEquals(1, cr.getCities().size());
+        assertEquals("Podane miasta nie sa polaczone", cr.getCities().get(0));
         assertEquals(0, cr.getValue());
     }
 
@@ -179,6 +180,7 @@ class GraphTest {
         instanceGraph.addFlight("Mar Sara", "Earth", 6000, 100);
         CourseResponse cr = instanceGraph.getBestRoute("Char", "Mar Sara", 0);
         assertEquals(1, cr.getCities().size());
+        assertEquals("Podane miasta nie sa polaczone", cr.getCities().get(0));
         assertEquals(0, cr.getValue());
     }
 
@@ -190,6 +192,7 @@ class GraphTest {
         instanceGraph.addFlight("Char", "Aiur", 3000, 100);
         CourseResponse cr = instanceGraph.getBestRoute("Char", "Korhal", 0);
         assertEquals(1, cr.getCities().size());
+        assertEquals("Podane miasto docelowe nie istnieje", cr.getCities().get(0));
         assertEquals(0, cr.getValue());
     }
 }
