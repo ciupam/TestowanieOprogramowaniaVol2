@@ -43,7 +43,7 @@ export default function Course({match}) {
                     <h1 key={city}>{city}</h1>
                 ))}
                 <br />
-                <h1>Value: {value}</h1>
+                <h1>Cost: {value} credits</h1>
             </div>
         </>
     );
