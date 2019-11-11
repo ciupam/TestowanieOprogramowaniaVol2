@@ -2,3 +2,4 @@ src/backend/.idea/libraries/Maven__antlr_antlr_2_7_7.xml
 src/backend/.idea/libraries/Maven__*
 .idea
 *.prefs
+node_modules

@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Monofett&display=swap');
+
+.body {
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    font: 50px 'Monofett', cursive;
+    margin: 20px;
+}
+
+.title a {
+    font: 50px 'Monofett', cursive;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.baton {
+    position: relative;
+    width: 350px;
+    padding: 0.7em 1.4em;
+    border-radius: 0.25em;
+    background-color: #2C5BD5;
+    text-align: center;
+    box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+}
+
+.wrapper div.baton {
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 20px;
+}
+
+.baton:active {
+    top: 0.1em;
+    box-shadow: none;
+}
+
+.wrapper .baton {
+    margin: 10px;
+}
+
+.text_input {
+    padding-left: 20px;
+    border-radius: 50px;
+    color: black;
+}
+
+.wrapper .input {
+    margin: 20px;
+    text-align: center;
+}
+
+.wrapper .input .short_input {
+    margin: 10px;
+}
+
+.short_input .text_input {
+    width: 170px;
+    text-align: right;
+}
+
+.icon {
+    position: relative;
+    top: 4px;
+    left: 4px;
+}
+
+img.icon {
+    height: 35px;
+    filter: invert(100%);
+}

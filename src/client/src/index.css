@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Monofett|Roboto+Mono&display=swap');
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font: 32px 'Roboto Mono', monospace;
+    color: white;
+}
+
+body {
+    background-color: #120B1D;
+}
