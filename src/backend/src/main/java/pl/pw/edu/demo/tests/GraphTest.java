@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import pl.pw.edu.demo.algorithm.Vertex;
 import pl.pw.edu.demo.dto.CourseResponse;
 
+import javax.validation.constraints.Null;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
@@ -30,7 +32,7 @@ class GraphTest {
     @Test
     void addMultipleVertexTest() {
         Graph instanceGraph = new Graph();
-        for(int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 100; i++) {
             instanceGraph.addVertex("ciechanow" + i);
         }
         assertEquals(100, instanceGraph.getVertexList().size());
@@ -45,8 +47,8 @@ class GraphTest {
         instanceGraph.addFlight("ciechanow", "warszawa", 20, 30);
 
         assertEquals(1, instanceGraph.getFlightCounter());
-        assertEquals(20,instanceGraph.getVertexList().get(0).getNeighbourList().get(0).getPrice());
-        assertEquals(30,instanceGraph.getVertexList().get(0).getNeighbourList().get(0).getTime());
+        assertEquals(20, instanceGraph.getVertexList().get(0).getNeighbourList().get(0).getPrice());
+        assertEquals(30, instanceGraph.getVertexList().get(0).getNeighbourList().get(0).getTime());
     }
 
     @Test
@@ -119,5 +121,75 @@ class GraphTest {
         assertEquals("warszawa", cr.getCities().get(1));
         assertEquals("ciechanow", cr.getCities().get(2));
         assertEquals(40, cr.getValue());
+    }
+
+    @Test
+    void getBestRouteWhenPriceDoubleMaxTest() {
+        Graph instanceGraph = new Graph();
+        instanceGraph.addVertex("Char");
+        instanceGraph.addVertex("Aiur");
+        instanceGraph.addFlight("Char", "Aiur", Double.MAX_VALUE, 100);
+        CourseResponse cr = instanceGraph.getBestRoute("Char", "Aiur", 0);
+        assertEquals("Aiur", cr.getCities().get(0));
+        assertEquals("Char", cr.getCities().get(1));
+        assertEquals(Double.MAX_VALUE, cr.getValue());
+    }
+
+
+    @Test
+    void getBestRouteWhenOneRoutePriceHigherThanDoubleMaxValueTest() {
+        Graph instanceGraph = new Graph();
+        instanceGraph.addVertex("Char");
+        instanceGraph.addVertex("Aiur");
+        instanceGraph.addVertex("Korhal");
+        instanceGraph.addFlight("Char", "Aiur", Double.MAX_VALUE, 100);
+        instanceGraph.addFlight("Aiur", "Korhal", 1000, 100);
+        instanceGraph.addFlight("Char", "Korhal", 2000, 50);
+        CourseResponse cr = instanceGraph.getBestRoute("Char", "Korhal", 0);
+        assertEquals("Korhal", cr.getCities().get(0));
+        assertEquals("Char", cr.getCities().get(1));
+        assertEquals(2000, cr.getValue());
+    }
+
+    @Test
+    void getBestRouteWhenThereIsNoConnectionTest() {
+        Graph instanceGraph = new Graph();
+        instanceGraph.addVertex("Char");
+        instanceGraph.addVertex("Aiur");
+        instanceGraph.addVertex("Korhal");
+        instanceGraph.addFlight("Char", "Aiur", 3000, 100);
+        instanceGraph.addFlight("Aiur", "Char", 3000, 100);
+        CourseResponse cr = instanceGraph.getBestRoute("Char", "Korhal", 0);
+        assertEquals(1, cr.getCities().size());
+        assertEquals(0, cr.getValue());
+    }
+
+    @Test
+    void getBestRouteWhenThereIsNoConnectionMoreComplicatedTest() {
+        Graph instanceGraph = new Graph();
+        instanceGraph.addVertex("Char");
+        instanceGraph.addVertex("Aiur");
+        instanceGraph.addVertex("Korhal");
+        instanceGraph.addVertex("Earth");
+        instanceGraph.addVertex("Mar Sara");
+        instanceGraph.addFlight("Char", "Aiur", 3000, 100);
+        instanceGraph.addFlight("Aiur", "Char", 3000, 100);
+        instanceGraph.addFlight("Aiur", "Korhal", 5000, 100);
+        instanceGraph.addFlight("Korhal", "Earth", 5000, 100);
+        instanceGraph.addFlight("Mar Sara", "Earth", 6000, 100);
+        CourseResponse cr = instanceGraph.getBestRoute("Char", "Mar Sara", 0);
+        assertEquals(1, cr.getCities().size());
+        assertEquals(0, cr.getValue());
+    }
+
+    @Test
+    void getBestRouteWhenThereIsNoDestinationTest() {
+        Graph instanceGraph = new Graph();
+        instanceGraph.addVertex("Char");
+        instanceGraph.addVertex("Aiur");
+        instanceGraph.addFlight("Char", "Aiur", 3000, 100);
+        CourseResponse cr = instanceGraph.getBestRoute("Char", "Korhal", 0);
+        assertEquals(1, cr.getCities().size());
+        assertEquals(0, cr.getValue());
     }
 }
