@@ -124,7 +124,7 @@ class GraphTest {
     }
 
     @Test
-    void getBestRouteWhenPriceDoubleMaxTest() {
+    void getBestRouteWhenPriceIsDoubleMaxTest() {
         Graph instanceGraph = new Graph();
         instanceGraph.addVertex("Char");
         instanceGraph.addVertex("Aiur");
