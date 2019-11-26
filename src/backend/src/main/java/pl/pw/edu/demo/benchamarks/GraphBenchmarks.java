@@ -33,6 +33,30 @@ public class GraphBenchmarks {
         }
     }
 
+    @State(Scope.Thread)
+    public static class GraphStateManyCitiesWithFlights {
+        public Graph testGraph;
+        public int citiesNumber = 101;
+
+        @Setup(Level.Invocation)
+        public void init() {
+            testGraph = new Graph();
+            for (int i=0; i<citiesNumber; i++){
+                testGraph.addVertex("Warszawa" + i);
+                testGraph.addVertex("Kielce" + i);
+                testGraph.addFlight("Warszawa" + i, "Kielce" + i, 10, 10);
+            }
+            for (int i=0; i<citiesNumber; i++){
+                testGraph.addVertex("Bialystok" + i);
+                testGraph.addVertex("Gdansk" + i);
+                testGraph.addVertex("Szczecin" + i);
+                testGraph.addFlight("Bialystok" + i, "Gdansk" + i, 10, 10);
+                testGraph.addFlight("Gdansk" + i, "Szczecin" + i, 10, 10);
+                testGraph.addFlight("Bialystok" + i, "Szczecin" + i, 30, 30);
+            }
+        }
+    }
+
     @Benchmark
     @Fork(value = 1, warmups = 1)
     @Warmup(iterations = 2)
@@ -126,6 +150,58 @@ public class GraphBenchmarks {
         Graph graph = graphState.testGraph;
         String string = graph.addFlight("Warszawa" + (graphState.citiesNumber -1), "Warszawa" + (graphState.citiesNumber -1), 10, 10);
         blackhole.consume(string);
+        blackhole.consume(graph);
+    }
+
+    @Benchmark
+    @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
+    @BenchmarkMode(Mode.AverageTime)
+    @Measurement(iterations = 5)
+    public void getBestRoute1(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
+        Graph graph = graphState.testGraph;
+        String string = graph.getBestRoute("Warszawa" + 0, "Kielce" + 0, 0);
+        blackhole.consume(string);
+        blackhole.consume(graph);
+    }
+
+    @Benchmark
+    @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
+    @BenchmarkMode(Mode.AverageTime)
+    @Measurement(iterations = 5)
+    public void getBestRoute2(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
+        Graph graph = graphState.testGraph;
+        for (int i =0; i<100; i++){
+            String string = graph.getBestRoute("Warszawa" + i, "Kielce" + i, 0);
+            blackhole.consume(string);
+        }
+        blackhole.consume(graph);
+    }
+
+    @Benchmark
+    @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
+    @BenchmarkMode(Mode.AverageTime)
+    @Measurement(iterations = 5)
+    public void getBestRoute3(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
+        Graph graph = graphState.testGraph;
+        String string = graph.getBestRoute("Bialystok" + 0, "Szczecin" + 0, 0);
+        blackhole.consume(string);
+        blackhole.consume(graph);
+    }
+
+    @Benchmark
+    @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
+    @BenchmarkMode(Mode.AverageTime)
+    @Measurement(iterations = 5)
+    public void getBestRoute4(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
+        Graph graph = graphState.testGraph;
+        for (int i =0; i<100; i++){
+            String string = graph.getBestRoute("Bialystok" + i, "Szczecin" + i, 0);
+            blackhole.consume(string);
+        }
         blackhole.consume(graph);
     }
 }
