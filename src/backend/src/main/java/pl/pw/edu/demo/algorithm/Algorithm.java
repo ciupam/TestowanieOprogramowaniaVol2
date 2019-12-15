@@ -16,7 +16,7 @@ public class Algorithm {
     Load load;
     Graph graph;
     private Algorithm() {
-        this.load = new Load("cities.txt", "flight.txt");
+        this.load = new Load("citiesx.txt", "flightx.txt");
         try {
            this.graph = load.load();
         } catch (FileNotFoundException e) {

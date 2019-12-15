@@ -160,8 +160,7 @@ public class GraphBenchmarks {
     @Measurement(iterations = 5)
     public void getBestRoute1(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
         Graph graph = graphState.testGraph;
-        String string = graph.getBestRoute("Warszawa" + 0, "Kielce" + 0, 0);
-        blackhole.consume(string);
+        graph.getBestRoute("Warszawa" + 0, "Kielce" + 0, 0);
         blackhole.consume(graph);
     }
 
@@ -173,8 +172,7 @@ public class GraphBenchmarks {
     public void getBestRoute2(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
         Graph graph = graphState.testGraph;
         for (int i =0; i<100; i++){
-            String string = graph.getBestRoute("Warszawa" + i, "Kielce" + i, 0);
-            blackhole.consume(string);
+            graph.getBestRoute("Warszawa", "Kielce", 0);
         }
         blackhole.consume(graph);
     }
@@ -186,8 +184,7 @@ public class GraphBenchmarks {
     @Measurement(iterations = 5)
     public void getBestRoute3(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
         Graph graph = graphState.testGraph;
-        String string = graph.getBestRoute("Bialystok" + 0, "Szczecin" + 0, 0);
-        blackhole.consume(string);
+        graph.getBestRoute("Bialystok" + 0, "Szczecin" + 0, 0);
         blackhole.consume(graph);
     }
 
@@ -199,8 +196,7 @@ public class GraphBenchmarks {
     public void getBestRoute4(GraphStateManyCitiesWithFlights graphState, Blackhole blackhole) {
         Graph graph = graphState.testGraph;
         for (int i =0; i<100; i++){
-            String string = graph.getBestRoute("Bialystok" + i, "Szczecin" + i, 0);
-            blackhole.consume(string);
+            graph.getBestRoute("Bialystok" + i, "Szczecin" + i, 0);
         }
         blackhole.consume(graph);
     }

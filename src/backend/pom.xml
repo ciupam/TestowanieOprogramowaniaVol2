@@ -11,13 +11,15 @@
     <groupId>pl.pw.edu</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>jbehave</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
         <swagger.version>2.9.1</swagger.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <url>http://maven.apache.org</url>
 
 
     <dependencies>
@@ -90,14 +92,62 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>1.19</version>
         </dependency>
+        <dependency>
+        <groupId>org.jbehave</groupId>
+        <artifactId>jbehave-core</artifactId>
+        <version>3.5.4</version>
+    </dependency>
     </dependencies>
 
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
     <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**/*.story</include>
+                </includes>
+            </testResource>
+        </testResources>
+
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>run-stories</id>
+                        <phase>integration-test</phase>
+                        <!--<configuration>-->
+                        <!--
+                        You could list all the scenarios to be run herei using mulitple <scenarioClassName/>
+                        elements, but that seems really tedious, everytime you add a new scenario you'd have
+                        to modifiy the list.  -->
+                        <!--<scenarioClassNames>-->
+                        <!--<scenarioClassName>com.mindflowsolutions.example.AScenarioscenarioClassName>-->
+                        <!--</scenarioClassNames>-->
+
+                        <configuration>
+                            <includes>
+                                <include>**/*CitiesScenario.java</include>
+                            </includes>
+                            <scope>test</scope>
+                        </configuration>
+                        <goals>
+                            <goal>run-stories-as-embeddables</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>

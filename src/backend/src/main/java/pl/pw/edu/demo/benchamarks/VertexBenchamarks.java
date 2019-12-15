@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class VertexBenchamarks {
 
 
@@ -60,7 +58,7 @@ public class VertexBenchamarks {
     @Warmup(iterations = 2)
     @BenchmarkMode(Mode.AverageTime)
     @Measurement(iterations = 5)
-    public void addOneToTheQueueHugeADDONLY(Blackhole blackhole) {
+    public void addOneToTheQueueHugeADDONLY() {
         List<Vertex> vertexList = new ArrayList<>();
         for(int i = 0 ; i <= 1000000 ; i ++) {
             vertexList.add(new Vertex("ciechanow" + i));
@@ -99,7 +97,7 @@ public class VertexBenchamarks {
     @Warmup(iterations = 2)
     @BenchmarkMode(Mode.AverageTime)
     @Measurement(iterations = 10)
-    public void addOneToTheQueueHugeWorstADDONLY(Blackhole blackhole) {
+    public void addOneToTheQueueHugeWorstADDONLY() {
         List<Vertex> vertexList = new ArrayList<>();
         for(int i = 0 ; i <= 100000 ; i ++) {
             vertexList.add(new Vertex("ciechanow" + i));
