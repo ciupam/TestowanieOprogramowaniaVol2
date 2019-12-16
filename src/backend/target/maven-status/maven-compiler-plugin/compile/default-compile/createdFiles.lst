@@ -1,9 +1,0 @@
-pl\pw\edu\demo\algorithm\Rate.class
-pl\pw\edu\demo\configuration\SwaggerConfiguration.class
-pl\pw\edu\demo\algorithm\Load.class
-pl\pw\edu\demo\configuration\RestConfig.class
-pl\pw\edu\demo\dto\SaveCourse.class
-pl\pw\edu\demo\algorithm\Vertex.class
-pl\pw\edu\demo\controller\MainControler.class
-pl\pw\edu\demo\DemoApplication.class
-pl\pw\edu\demo\algorithm\Graph.class
