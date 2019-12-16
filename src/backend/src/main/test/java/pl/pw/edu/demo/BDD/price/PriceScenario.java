@@ -1,4 +1,4 @@
-package pl.pw.edu.demo.BDD.time;
+package pl.pw.edu.demo.BDD.price;
 
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
@@ -10,7 +10,7 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 
 import java.util.List;
 
-public class TimeScenario extends JUnitStory {
+public class PriceScenario extends JUnitStory {
 
     // Here we specify the configuration, starting from default MostUsefulConfiguration, and changing only what is needed
     @Override
@@ -26,7 +26,7 @@ public class TimeScenario extends JUnitStory {
     @Override
     public List<CandidateSteps> candidateSteps() {
         // varargs, can have more that one steps classes
-        return new InstanceStepsFactory(configuration(), new pl.pw.edu.demo.BDD.time.TimeScenarioSteps()).createCandidateSteps();
+        return new InstanceStepsFactory(configuration(), new PriceScenarioSteps()).createCandidateSteps();
     }
 
 //
