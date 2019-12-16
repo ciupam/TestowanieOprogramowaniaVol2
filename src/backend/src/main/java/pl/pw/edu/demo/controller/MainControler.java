@@ -36,7 +36,7 @@ public class MainControler {
     @PostMapping("/findCourse")
     public ResponseEntity<CourseResponse> getCourse(@Valid @RequestBody FindCourseRequest request) {
         log.info("New get request start \"" + request.getStart() + "\" destination \"" + request.getDestination() + "\"");
-        CourseResponse result = algorithm.findBestConnection(request.getStart(), request.getDestination());
+        CourseResponse result = algorithm.findBestConnection(request.getStart(), request.getDestination(),true);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

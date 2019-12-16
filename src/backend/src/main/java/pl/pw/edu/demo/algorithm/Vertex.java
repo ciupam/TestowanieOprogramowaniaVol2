@@ -22,14 +22,19 @@ public class Vertex {
         this.neighbourList = new ArrayList<>();
     }
 
-    public void checkNeighbourWithCycleBreak(Queue<Vertex> queue) {
+    public void checkNeighbourWithCycleBreak(Queue<Vertex> queue, boolean... byTime) {
         Vertex visiting;
         boolean cycleBreak;
 
         for (int i = 0; i < neighbourList.size(); i++) {
             cycleBreak = true;
             visiting = neighbourList.get(i).getVertexOut();
-            double newValue = neighbourList.get(i).calculatePrice(this.value);
+            double newValue;
+            if(byTime.length > 0){
+                newValue = neighbourList.get(i).calculateTime(this.value);
+            }else {
+                newValue = neighbourList.get(i).calculatePrice(this.value);
+            }
             if (newValue < visiting.value || visiting.value ==0 ) {
                 Vertex grandparent = this.parent;
                 while (grandparent != null) {

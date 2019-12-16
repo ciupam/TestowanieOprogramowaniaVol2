@@ -30,14 +30,14 @@ public class Algorithm {
         return new Algorithm();
     }
 
-    public CourseResponse findBestConnection(String startCity, String destCity) {
+    public CourseResponse findBestConnection(String startCity, String destCity, boolean... byTime) {
         Graph graph = null;
         try {
             graph = load.load();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        CourseResponse result = graph.getBestRoute(startCity, destCity, 0);
+        CourseResponse result = graph.getBestRoute(startCity, destCity, 0,byTime[0]);
         return result;
     }
 

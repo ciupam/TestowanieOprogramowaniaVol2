@@ -56,12 +56,12 @@ public class Graph {
 
     }
 
-    public CourseResponse getBestRoute(String startCity, String destCity, double value) {
-        checkGraphForBestRoute(startCity, value);
+    public CourseResponse getBestRoute(String startCity, String destCity, double value, boolean... byTime) {
+        checkGraphForBestRoute(startCity, value, byTime);
         return readBestRoute(startCity, destCity);
     }
 
-    private void checkGraphForBestRoute(String startCity, double value) {
+    private void checkGraphForBestRoute(String startCity, double value, boolean... byTime ) {
         Vertex vertexFrom;
         Queue<Vertex> queue = new ArrayDeque<>();
 
@@ -76,7 +76,7 @@ public class Graph {
         while (!queue.isEmpty()) {
             vertexFrom = queue.remove();
             if (!vertexFrom.isCheck()) {
-                vertexFrom.checkNeighbourWithCycleBreak(queue);
+                vertexFrom.checkNeighbourWithCycleBreak(queue,byTime);
                 vertexFrom.setCheck(true);
             }
         }
