@@ -47,4 +47,18 @@ public class CitiesScenarioSteps {
         Collections.addAll(resultList, result.split(","));
         assertEquals(cities,resultList);
     }
+
+    @Given("the Alghorithm with CW flightList is <flightList>")
+    public void createAlgorithmCW(@Named("flightList") String filghtList) {
+        givenCities = new ArrayList<>();
+        cities = new ArrayList<>();
+        graph = new Graph();
+        graph.addVertex("Ciechanów");
+        graph.addVertex("Wrocław");
+        String[] cities_to_add = filghtList.split(",");
+        for(String city: cities_to_add){
+            givenCities.add(city);
+            graph.addVertex(city);
+        }
+    }
 }
