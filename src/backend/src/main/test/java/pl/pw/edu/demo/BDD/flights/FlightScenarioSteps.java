@@ -29,6 +29,19 @@ public class FlightScenarioSteps {
         }
     }
 
+    @Given("the connections is <connections>")
+    public void createGraphWithConnections(@Named("connections") String connections) {
+        String[] connectionsList = connections.split(",");
+        String[] parametrs;
+        graph = new Graph();
+        for(String conn: connectionsList){
+            parametrs = conn.split("-");
+            graph.addVertex(parametrs[0]);
+            graph.addVertex(parametrs[1]);
+            graph.addFlight(parametrs[0],parametrs[1],Double.parseDouble(parametrs[2]),Double.parseDouble(parametrs[3]));
+        }
+    }
+
     @When("startCity is <startCity>")
     public void setStartCity(@Named("startCity") String start) {
         startCity = start;

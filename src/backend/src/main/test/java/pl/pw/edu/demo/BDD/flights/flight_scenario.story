@@ -14,3 +14,19 @@ Warszawa,Legnica |Radom     |Legnica  |10   |10    |Miasto Radom nie zostaÅ‚o wp
 Warszawa,Legnica |Warszawa  |Radom    |10   |10    |Nie odnaleziono poÅ‚Ä…czenia z miasta Warszawa do Radom |
 Warszawa,Legnica |Warszawa  |Legnica  |-10  |10    |Czas -10 jest niepoprawny                               |
 Warszawa,Legnica |Warszawa  |Legnica  |10   |-10   |Cena -10 jest niepoprawna                               |
+
+
+
+Scenario: Po³¹czenie istnieje ju¿ w bazie
+
+Given the connections is <connections>
+When startCity is <startCity> 
+When destCity is <destCity>
+When price is <price> 
+When time is <time> 
+Then the Algoritm should return <result>
+
+Examples:
+connections                                     |destCity |price |result |startCity |time |
+Warszawa-Legnica-250-45,Legnica-Szczecin-400-15 |Legnica  |250   |ok     |Warszawa  |45   |
+Warszawa-Legnica-250-45,Legnica-Szczecin-400-15 |Szczecin |400   |ok     |Legnica   |15   |
