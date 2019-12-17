@@ -12,8 +12,8 @@ cities           |startCity |destCity |time |price |result                      
 Warszawa,Legnica |Warszawa  |Legnica  |10   |10    |ok                                                      |
 Warszawa,Legnica |Radom     |Legnica  |10   |10    |Miasto Radom nie zostało wprowadzone                   |
 Warszawa,Legnica |Warszawa  |Radom    |10   |10    |Nie odnaleziono połączenia z miasta Warszawa do Radom |
-Warszawa,Legnica |Warszawa  |Legnica  |-10  |10    |Czas -10 jest niepoprawny                               |
-Warszawa,Legnica |Warszawa  |Legnica  |10   |-10   |Cena -10 jest niepoprawna                               |
+Warszawa,Legnica |Warszawa  |Legnica  |-10  |10    |Czas -10.0 jest niepoprawny                             |
+Warszawa,Legnica |Warszawa  |Legnica  |10   |-10   |Cena -10.0 jest niepoprawna                             |
 
 
 

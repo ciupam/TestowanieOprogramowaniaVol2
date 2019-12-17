@@ -58,7 +58,7 @@ public class FlightScenarioSteps {
     }
 
     @When("time is <time>")
-    public void setTime(@Named("test") double tim) {
+    public void setTime(@Named("time") double tim) {
         time = tim;
     }
 
